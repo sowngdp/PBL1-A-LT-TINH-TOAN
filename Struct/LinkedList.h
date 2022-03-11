@@ -166,3 +166,97 @@ void deleteAfterId(LinkedList &linkedList, int id)
         node = node->nextNode;
     }
 }
+LinkedList findBookByName(LinkedList &linkedList, std::string name)
+{
+    LinkedList result;
+    BookNode *node = linkedList.headNode;
+    while (node != NULL)
+    {
+        if (node->book->name == name)
+        {
+            addBookToLast(result, node->book);
+        }
+        node = node->nextNode;
+    }
+    return result;
+}
+LinkedList findBookByAuthorName(LinkedList &linkedList, std::string author)
+{
+    LinkedList result;
+    BookNode *node = linkedList.headNode;
+    while (node != NULL)
+    {
+        if (node->book->authorName == author)
+        {
+            addBookToLast(result, node->book);
+        }
+        node = node->nextNode;
+    }
+    return result;
+}
+LinkedList findBookByPublisher(LinkedList &linkedList, std::string publisher)
+{
+    LinkedList result;
+    BookNode *node = linkedList.headNode;
+    while (node != NULL)
+    {
+        if (node->book->publisher == publisher)
+        {
+            addBookToLast(result, node->book);
+        }
+        node = node->nextNode;
+    }
+    return result;
+}
+void displayList(LinkedList &linkedList)
+{
+    BookNode *node = linkedList.headNode;
+    while (node != NULL)
+    {
+        showBook(*node->book);
+        node = node->nextNode;
+    }
+}
+void displayAllBookIsBorrowed(LinkedList &linkedList)
+{
+    BookNode *node = linkedList.headNode;
+    while (node != NULL)
+    {
+        if (node->book->isBorrowed)
+        {
+            showBook(*node->book);
+        }
+        node = node->nextNode;
+    }
+}
+void displayAllBookIsNotBorrowed(LinkedList &linkedList)
+{
+    BookNode *node = linkedList.headNode;
+    while (node != NULL)
+    {
+        if (!node->book->isBorrowed)
+        {
+            showBook(*node->book);
+        }
+        node = node->nextNode;
+    }
+}
+void sort(LinkedList &linkedList, bool (*compare)(Book, Book))
+{
+    BookNode *node = linkedList.headNode;
+    while (node != NULL)
+    {
+        BookNode *node2 = node->nextNode;
+        while (node2 != NULL)
+        {
+            if (compare(*node->book, *node2->book))
+            {
+                Book temp = *node->book;
+                *node->book = *node2->book;
+                *node2->book = temp;
+            }
+            node2 = node2->nextNode;
+        }
+        node = node->nextNode;
+    }
+}
